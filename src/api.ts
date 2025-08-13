@@ -1,4 +1,5 @@
-const API_URL="https://test.shopbot.sk"
+//const API_URL="https://localhost:7221"
+const API_URL=""
 
 export interface NewCustomerResponse {
     id: number;
@@ -63,7 +64,7 @@ export async function callPostData<T>(url: string, data: string): Promise<Respon
 
 export async function callGetData<T>(url: string): Promise<Response<T>> {
     const response = await fetch(url, {
-        method: 'POST',
+        method: 'GET',
     });
     if (!response.ok) {
         console.error(`http get failed: ${url}, status ${response.status}`);

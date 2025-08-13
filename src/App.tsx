@@ -1,9 +1,9 @@
 import './App.css'
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 import SetupForm from './SetupForm';
-import { callGetCustomer, callCreateSetupIntent } from './api';
-import { useState, useEffect } from 'react';
+import {callGetCustomer, callCreateSetupIntent} from './api';
+import {useState, useEffect} from 'react';
 
 const stripePromise = loadStripe('pk_test_51Rlo2YQ80JCjuAv7xV8FIm6BbkSvrMrVHLRTALb2uT3VWFCwTIlaL69Mm1lpbSpb64fejxgl2MG8jEU1ow5tGYSv00sAofh52q');
 
@@ -40,24 +40,27 @@ function App() {
                 throw new Error('creating setup intent failed')
             }
         })()
-    })
+    },[])
 
-    let clientSecret: string | null = null
-    const options: any = {
-        clientSecret: clientSecret,
-        appearance: {/*...*/},
-    };
     if (getSetupIntentResult !== null) {
-        options.clientSecret = getSetupIntentResult.clientSecret;
+        const options: any = {
+            clientSecret: getSetupIntentResult.clientSecret,
+            appearance: {/*...*/},
+        };
+        return (
+            <>
+                <Elements stripe={stripePromise} options={options}>
+                    <SetupForm />
+                </Elements>
+            </>
+        )
+    } else {
+        return (
+            <>
+                {"Loading ..."}
+            </>
+        )
     }
-
-    return (
-        <>
-            <Elements stripe={stripePromise} options={options}>
-                <SetupForm />
-            </Elements>
-        </>
-    )
 }
 
 export default App
