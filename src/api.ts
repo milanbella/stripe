@@ -86,19 +86,19 @@ export async function callGetData<T>(url: string): Promise<Response<T>> {
 }
 
 export async function callGetCustomer(): Promise<Response<NewCustomerResponse>> {
-    let response = await callGetData<NewCustomerResponse>(`${API_URL}/api/stripe-test/get-customer`);
+    let response = await callPostData<NewCustomerResponse>(`${API_URL}/api/stripe/get-customer`, '{}');
     return response;
 }
 
 export async function callGetEphemeralKey(request: GetEphemeralKeyRequest): Promise<Response<GetEphemeralKeyResponse>> {
     let data: string = JSON.stringify(request);
-    let response = await callPostData<GetEphemeralKeyResponse>(`${API_URL}/api/stripe-test/get-ephemeral-key`, data);
+    let response = await callPostData<GetEphemeralKeyResponse>(`${API_URL}/api/stripe/get-ephemeral-key`, data);
     return response;
 }
 
 export async function callCreateSetupIntent(request: CreateSetupIntentRequest): Promise<Response<CreateSetupIntentResponse>> {
     let data: string = JSON.stringify(request);
-    let response = await callPostData<CreateSetupIntentResponse>(`${API_URL}/api/stripe-test/create-setup-intent`, data);
+    let response = await callPostData<CreateSetupIntentResponse>(`${API_URL}/api/stripe/create-setup-intent`, data);
     return response;
 }
 

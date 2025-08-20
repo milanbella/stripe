@@ -1,8 +1,11 @@
+set -xe
+cd ..
+npm run build
 rm -rf temp_deploy
 mkdir temp_deploy
-cp -rf dist temp_deploy/html_paygate
+cp -r dist temp_deploy/html_paygate
 cd temp_deploy
-	tare -cvzf html_paygate.tar.gz html_paygate
+	tar -cvzf html_paygate.tar.gz html_paygate
 sftp -b - root@usrv <<EOF
 cd /var/www
 put html_paygate.tar.gz
